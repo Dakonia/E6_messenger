@@ -1,0 +1,15 @@
+<!-- messenger_app/templates/create_chat.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Создать новый чат</title>
+</head>
+<body>
+    <h1>Создать новый чат</h1>
+    <form action="{% url 'create_chat' %}" method="post">
+        {% csrf_token %}
+        {{ chat_form.as_p }}
+        <button type="submit">Создать</button>
+    </form>
+</body>
+</html>

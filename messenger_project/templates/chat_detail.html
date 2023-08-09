@@ -1,0 +1,41 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ chat.name }}</title>
+    <!-- Подключение своих стилей -->
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <!-- Список пользователей слева -->
+            <div class="col-md-3">
+    <h3>Участники чата:</h3>
+    <ul id="user-list">
+        {% for user in chat.participants.all %}
+            <li>{{ user.username }}</li>
+        {% endfor %}
+    </ul>
+</div>
+            <!-- Окно с сообщениями -->
+            <div class="col-md-9" data-chat-id="{{ chat.id }}">
+                <h1>{{ chat.name }}</h1>
+                <ul id="message-list">
+                    {% for message in messages %}
+                        <li>{{ message.sender }}: {{ message.content }}</li>
+                    {% endfor %}
+                </ul>
+                <form id="message-form">
+                    <input type="text" id="message-input" required>
+                    <button type="submit" class="btn btn-primary">Отправить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Подключение файла websocket.js -->
+    <script src="{% static 'js/websocket.js' %}"></script>
+</body>
+</html>
